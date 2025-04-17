@@ -13,6 +13,7 @@
     "check": "biome check"
   },
   "dependencies": {
+    "@pixi/react": "^8.0.0-beta.25",
     "@t3-oss/env-core": "^0.12.0",
     "@tailwindcss/vite": "^4.0.6",
     "@tanstack/react-router": "^1.114.3",
@@ -21,6 +22,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.476.0",
+    "pixi.js": "^8.9.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tailwind-merge": "^3.0.2",
