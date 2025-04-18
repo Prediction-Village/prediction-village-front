@@ -12,6 +12,9 @@ export default defineConfig({
     viteReact(),
     tailwindcss(),
   ],
+  optimizeDeps: {
+    exclude: ["three"],
+  },
   test: {
     globals: true,
     environment: "jsdom",
