@@ -1,13 +1,14 @@
 import { Link } from "@tanstack/react-router";
 
-export default function Header() {
+export function Header() {
   return (
-    <header className="p-2 flex gap-2 bg-white text-black justify-between">
-      <nav className="flex flex-row">
-        <div className="px-2 font-bold">
-          <Link to="/">Home</Link>
-        </div>
-      </nav>
-    </header>
+    <footer className="bg-stone-200 border-t flex justify-around p-2 z-10">
+      <Link to="/" className="text-gray-600 hover:text-gray-800">
+        Game
+      </Link>
+      <Link to="/market" className="text-gray-600 hover:text-gray-800">
+        Market
+      </Link>
+    </footer>
   );
 }

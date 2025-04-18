@@ -1,5 +1,5 @@
 {
-  "name": "market-clash-front",
+  "name": "prediction-village-front",
   "private": true,
   "type": "module",
   "scripts": {
@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@pixi/react": "^8.0.0-beta.25",
+    "@radix-ui/react-slot": "^1.2.0",
     "@t3-oss/env-core": "^0.12.0",
     "@tailwindcss/vite": "^4.0.6",
     "@tanstack/react-router": "^1.114.3",

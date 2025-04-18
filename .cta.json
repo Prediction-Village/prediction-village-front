@@ -1,7 +1,7 @@
 {
   "framework": "react",
   "typescript": true,
-  "projectName": "market-clash-front",
+  "projectName": "prediction-village-front",
   "mode": "file-router",
   "tailwind": true,
   "packageManager": "npm",
