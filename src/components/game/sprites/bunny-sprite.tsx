@@ -1,7 +1,7 @@
 import { Assets, Texture } from "pixi.js";
 import { useEffect, useRef, useState } from "react";
 
-export function BunnySprite() {
+export function BunnySprite({ x, y }: { x: number; y: number }) {
   const spriteRef = useRef(null);
   const [texture, setTexture] = useState(Texture.EMPTY);
   const [isHovered, setIsHover] = useState(false);
@@ -26,11 +26,11 @@ export function BunnySprite() {
       onClick={toggleActive}
       onPointerOver={() => setIsHover(true)}
       onPointerOut={() => setIsHover(false)}
-      scale={isActive ? 1 : 1.5}
+      scale={isActive ? 1.5 : 1}
       rotation={isHovered ? 0.2 : 0}
       texture={texture}
-      x={100}
-      y={100}
+      x={x}
+      y={y}
     />
   );
 }
