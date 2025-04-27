@@ -1,8 +1,7 @@
 import { Application, extend } from "@pixi/react";
 import { Container, Graphics, Sprite } from "pixi.js";
 import { useEffect, useRef, useState } from "react";
-import { BackgroundSprites } from "./sprites/background-sprites";
-import { BunnySprite } from "./sprites/bunny-sprite";
+import { Scene } from "./sprites/scene";
 
 extend({
   Container,
@@ -68,9 +67,7 @@ export const GameLayout = () => {
     >
       <Application resizeTo={containerRef}>
         <pixiContainer x={position.x} y={position.y} scale={scale}>
-          <BackgroundSprites />
-          <BunnySprite x={1240} y={117} />
-          <BunnySprite x={1050} y={265} />
+          <Scene />
         </pixiContainer>
       </Application>
     </div>
