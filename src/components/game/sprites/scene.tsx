@@ -1,7 +1,8 @@
 import { bridgeWidth, villageWidth } from "@/game/assets";
 import type { BridgeBoard, BridgeRow } from "../types/bridge";
+import type { VillageBuildings } from "../types/village-buildings";
 import { Bridge } from "./Bridge";
-import { HumanVillage } from "./human-village";
+import { HumanVillage } from "./human/human-village";
 import { OrkVillage } from "./ork-village";
 
 const row: BridgeRow = {
@@ -31,10 +32,44 @@ const board: BridgeBoard = {
   r6: row,
 };
 
+const humanVillageBuildings: VillageBuildings = {
+  townHall: {
+    lvl: 6,
+    damage: 0,
+  },
+  goldMines: {
+    gm1: {
+      lvl: 1,
+    },
+    gm2: null,
+    gm3: null,
+    gm4: null,
+    gm5: null,
+  },
+  barracks: {
+    b1: {
+      lvl: 1,
+    },
+    b2: null,
+    b3: null,
+    b4: null,
+    b5: null,
+  },
+  labs: {
+    l1: {
+      lvl: 1,
+    },
+    l2: null,
+    l3: null,
+    l4: null,
+    l5: null,
+  },
+};
+
 export const Scene = () => {
   return (
     <>
-      <HumanVillage x={0} y={0} />
+      <HumanVillage x={0} y={0} buildings={humanVillageBuildings} />
       <Bridge x={villageWidth} y={96} board={board} />
       <OrkVillage x={villageWidth + bridgeWidth} y={0} />
     </>
