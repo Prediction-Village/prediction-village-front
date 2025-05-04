@@ -2,6 +2,7 @@ import { villageHeight, villageWidth } from "@/game/assets";
 import { Assets, Texture } from "pixi.js";
 import { useEffect, useState } from "react";
 import type { VillageBuildings } from "../../types/village-buildings";
+import { HumanGoldMine } from "./human-gold-mine";
 import { HumanTownhall } from "./human-townhall";
 
 export const HumanVillage = ({
@@ -10,14 +11,19 @@ export const HumanVillage = ({
   buildings,
 }: { x: number; y: number; buildings: VillageBuildings }) => {
   const [bgTexture, setBgTexture] = useState(Texture.EMPTY);
+  const [fenceTexture, setFenceTexture] = useState(Texture.EMPTY);
 
   useEffect(() => {
-    Promise.all([Assets.load<Texture>("/assets/Human_village.png")]).then(
-      ([bg]) => {
-        setBgTexture(bg);
-      },
-    );
-  }, []);
+    Promise.all([
+      Assets.load<Texture>("/assets/human/Human_village__Ground.png"),
+      Assets.load<Texture>(
+        `/assets/human/fence/Human_village__Fence_lv${buildings.townHall.lvl}.png`,
+      ),
+    ]).then(([bg, fence]) => {
+      setBgTexture(bg);
+      setFenceTexture(fence);
+    });
+  }, [buildings.townHall.lvl]);
 
   return (
     <>
@@ -28,8 +34,49 @@ export const HumanVillage = ({
         width={villageWidth}
         height={villageHeight}
       />
+      <pixiSprite
+        texture={fenceTexture}
+        x={x}
+        y={y}
+        width={villageWidth}
+        height={villageHeight}
+      />
 
-      <HumanTownhall x={x + 290} y={y + 190} lvl={buildings.townHall.lvl} />
+      <HumanGoldMine
+        x={x + 125}
+        y={y + 180}
+        lvl={buildings.goldMines.gm1.lvl}
+      />
+      {buildings.goldMines.gm2 && (
+        <HumanGoldMine
+          x={x + 125}
+          y={y + 50}
+          lvl={buildings.goldMines.gm2.lvl}
+        />
+      )}
+      {buildings.goldMines.gm3 && (
+        <HumanGoldMine
+          x={x + 125}
+          y={y + 310}
+          lvl={buildings.goldMines.gm3.lvl}
+        />
+      )}
+      {buildings.goldMines.gm4 && (
+        <HumanGoldMine
+          x={x + 10}
+          y={y + 120}
+          lvl={buildings.goldMines.gm4.lvl}
+        />
+      )}
+      {buildings.goldMines.gm5 && (
+        <HumanGoldMine
+          x={x + 10}
+          y={y + 240}
+          lvl={buildings.goldMines.gm5.lvl}
+        />
+      )}
+
+      <HumanTownhall x={x + 290} y={y + 180} lvl={buildings.townHall.lvl} />
     </>
   );
 };

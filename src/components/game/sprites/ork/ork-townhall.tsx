@@ -1,7 +1,7 @@
 import { Assets, Texture } from "pixi.js";
 import { useEffect, useState } from "react";
 
-export const HumanTownhall = ({
+export const OrkTownhall = ({
   x,
   y,
   lvl,
@@ -9,7 +9,7 @@ export const HumanTownhall = ({
   const [bgTexture, setBgTexture] = useState(Texture.EMPTY);
 
   useEffect(() => {
-    Promise.all([Assets.load(`/assets/human/townhalls/${lvl}.webp`)]).then(
+    Promise.all([Assets.load(`/assets/ork/townhalls/${lvl}.webp`)]).then(
       ([bg]) => {
         setBgTexture(bg);
       },
