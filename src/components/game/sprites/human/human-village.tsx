@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import type { VillageBuildings } from "../../types/village-buildings";
 import { ArcherTower } from "../archer-tower";
 import { Barracks } from "../barracks";
+import { Lab } from "../lab";
 import { HumanGoldMine } from "./human-gold-mine";
 import { HumanTownhall } from "./human-townhall";
 
@@ -129,6 +130,37 @@ export const HumanVillage = ({
           x={x + 565}
           y={y + 230}
           lvl={buildings.barracks.b5.lvl}
+        />
+      )}
+
+      <Lab
+        villageType="human"
+        x={x + 235}
+        y={y + 10}
+        lvl={buildings.labs.l1.lvl}
+      />
+      {buildings.labs.l2 && (
+        <Lab
+          villageType="human"
+          x={x + 345}
+          y={y + 10}
+          lvl={buildings.labs.l2.lvl}
+        />
+      )}
+      {buildings.labs.l3 && (
+        <Lab
+          villageType="human"
+          x={x + 235}
+          y={y + 330}
+          lvl={buildings.labs.l3.lvl}
+        />
+      )}
+      {buildings.labs.l4 && (
+        <Lab
+          villageType="human"
+          x={x + 345}
+          y={y + 330}
+          lvl={buildings.labs.l4.lvl}
         />
       )}
     </>

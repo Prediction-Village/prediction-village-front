@@ -36,6 +36,5 @@ export type VillageBuildings = {
     l2: Lab | null;
     l3: Lab | null;
     l4: Lab | null;
-    l5: Lab | null;
   };
 };

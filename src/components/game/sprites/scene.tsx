@@ -75,10 +75,15 @@ const humanVillageBuildings: VillageBuildings = {
     l1: {
       lvl: 1,
     },
-    l2: null,
-    l3: null,
-    l4: null,
-    l5: null,
+    l2: {
+      lvl: 2,
+    },
+    l3: {
+      lvl: 3,
+    },
+    l4: {
+      lvl: 4,
+    },
   },
 };
 
