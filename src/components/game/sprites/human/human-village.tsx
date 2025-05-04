@@ -2,6 +2,8 @@ import { villageHeight, villageWidth } from "@/game/assets";
 import { Assets, Texture } from "pixi.js";
 import { useEffect, useState } from "react";
 import type { VillageBuildings } from "../../types/village-buildings";
+import { ArcherTower } from "../archer-tower";
+import { Barracks } from "../barracks";
 import { HumanGoldMine } from "./human-gold-mine";
 import { HumanTownhall } from "./human-townhall";
 
@@ -77,6 +79,58 @@ export const HumanVillage = ({
       )}
 
       <HumanTownhall x={x + 290} y={y + 180} lvl={buildings.townHall.lvl} />
+
+      <ArcherTower
+        villageType="human"
+        x={x + 690}
+        y={y + 65}
+        lvl={buildings.townHall.lvl}
+      />
+      <ArcherTower
+        villageType="human"
+        x={x + 690}
+        y={y + 265}
+        lvl={buildings.townHall.lvl}
+      />
+
+      <Barracks
+        villageType="human"
+        x={x + 455}
+        y={y + 160}
+        lvl={buildings.barracks.b1.lvl}
+      />
+      {buildings.barracks.b2 && (
+        <Barracks
+          villageType="human"
+          x={x + 455}
+          y={y + 300}
+          lvl={buildings.barracks.b2.lvl}
+        />
+      )}
+      {buildings.barracks.b3 && (
+        <Barracks
+          villageType="human"
+          x={x + 455}
+          y={y + 20}
+          lvl={buildings.barracks.b3.lvl}
+        />
+      )}
+      {buildings.barracks.b4 && (
+        <Barracks
+          villageType="human"
+          x={x + 565}
+          y={y + 80}
+          lvl={buildings.barracks.b4.lvl}
+        />
+      )}
+      {buildings.barracks.b5 && (
+        <Barracks
+          villageType="human"
+          x={x + 565}
+          y={y + 230}
+          lvl={buildings.barracks.b5.lvl}
+        />
+      )}
     </>
   );
 };
