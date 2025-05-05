@@ -5,7 +5,7 @@ import type { VillageBuildings } from "../../types/village-buildings";
 import { ArcherTower } from "../archer-tower";
 import { Barracks } from "../barracks";
 import { Lab } from "../lab";
-import { HumanGoldMine } from "./human-gold-mine";
+import { GoldMine } from "../gold-mine";
 import { HumanTownhall } from "./human-townhall";
 
 export const HumanVillage = ({
@@ -45,34 +45,39 @@ export const HumanVillage = ({
         height={villageHeight}
       />
 
-      <HumanGoldMine
+      <GoldMine
+        villageType="human"
         x={x + 125}
         y={y + 180}
         lvl={buildings.goldMines.gm1.lvl}
       />
       {buildings.goldMines.gm2 && (
-        <HumanGoldMine
+        <GoldMine
+          villageType="human"
           x={x + 125}
           y={y + 50}
           lvl={buildings.goldMines.gm2.lvl}
         />
       )}
       {buildings.goldMines.gm3 && (
-        <HumanGoldMine
+        <GoldMine
+          villageType="human"
           x={x + 125}
           y={y + 310}
           lvl={buildings.goldMines.gm3.lvl}
         />
       )}
       {buildings.goldMines.gm4 && (
-        <HumanGoldMine
+        <GoldMine
+          villageType="human"
           x={x + 10}
           y={y + 120}
           lvl={buildings.goldMines.gm4.lvl}
         />
       )}
       {buildings.goldMines.gm5 && (
-        <HumanGoldMine
+        <GoldMine
+          villageType="human"
           x={x + 10}
           y={y + 240}
           lvl={buildings.goldMines.gm5.lvl}

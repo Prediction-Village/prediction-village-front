@@ -87,12 +87,24 @@ const humanVillageBuildings: VillageBuildings = {
   },
 };
 
+const orkVillageBuildings: VillageBuildings = {
+  ...humanVillageBuildings,
+  townHall: {
+    lvl: 1,
+    damage: 0,
+  },
+};
+
 export const Scene = () => {
   return (
     <>
       <HumanVillage x={0} y={0} buildings={humanVillageBuildings} />
       <Bridge x={villageWidth} y={89} board={board} />
-      <OrkVillage x={villageWidth + bridgeWidth} y={0} />
+      <OrkVillage
+        x={villageWidth + bridgeWidth}
+        y={0}
+        buildings={orkVillageBuildings}
+      />
     </>
   );
 };
