@@ -7,9 +7,6 @@ import { routeTree } from "./routeTree.gen";
 
 import "./styles.css";
 import reportWebVitals from "./reportWebVitals.ts";
-import { fetchAccountInfo } from "./backend/target/game_state.ts";
-
-fetchAccountInfo().catch(console.error);
 
 // Create a new router instance
 const router = createRouter({
