@@ -84,7 +84,12 @@ export const OrkVillage = ({
         />
       )}
 
-      <OrkTownhall x={x + 390} y={y + 180} lvl={buildings.townHall.lvl} />
+      <OrkTownhall
+        x={x + 390}
+        y={y + 180}
+        lvl={buildings.townHall.lvl}
+        damage={buildings.townHall.damage}
+      />
 
       <ArcherTower
         villageType="ork"

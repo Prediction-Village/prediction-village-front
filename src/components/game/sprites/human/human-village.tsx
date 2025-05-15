@@ -84,7 +84,12 @@ export const HumanVillage = ({
         />
       )}
 
-      <HumanTownhall x={x + 290} y={y + 180} lvl={buildings.townHall.lvl} />
+      <HumanTownhall
+        x={x + 290}
+        y={y + 180}
+        lvl={buildings.townHall.lvl}
+        damage={buildings.townHall.damage}
+      />
 
       <ArcherTower
         villageType="human"

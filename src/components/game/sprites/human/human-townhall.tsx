@@ -1,11 +1,13 @@
 import { Assets, Texture } from "pixi.js";
 import { useEffect, useState } from "react";
+import { StatsSprite } from "../StatsOverlay";
 
 export const HumanTownhall = ({
   x,
   y,
   lvl,
-}: { x: number; y: number; lvl: number }) => {
+  damage,
+}: { x: number; y: number; lvl: number; damage: number }) => {
   const [bgTexture, setBgTexture] = useState(Texture.EMPTY);
 
   useEffect(() => {
@@ -17,6 +19,13 @@ export const HumanTownhall = ({
   }, [lvl]);
 
   return (
-    <pixiSprite texture={bgTexture} x={x} y={y} width={100} height={100} />
+    <StatsSprite
+      texture={bgTexture}
+      x={x}
+      y={y}
+      width={100}
+      height={100}
+      stats={{ name: "Townhall", lvl, damage }}
+    />
   );
 };

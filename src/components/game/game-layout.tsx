@@ -1,5 +1,5 @@
 import { Application, extend } from "@pixi/react";
-import { Container, Graphics, Sprite } from "pixi.js";
+import { Container, Graphics, Sprite, Text } from "pixi.js";
 import { useEffect, useRef, useState } from "react";
 import { Scene } from "./sprites/scene";
 
@@ -7,6 +7,7 @@ extend({
   Container,
   Graphics,
   Sprite,
+  Text,
 });
 
 export const GameLayout = () => {

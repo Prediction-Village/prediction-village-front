@@ -1,6 +1,7 @@
 import { Assets, Texture } from "pixi.js";
 import { useEffect, useState } from "react";
 import type { VillageType } from "../types/bridge";
+import { StatsSprite } from "./StatsOverlay";
 
 export const Lab = ({
   villageType,
@@ -19,7 +20,7 @@ export const Lab = ({
   }, [villageType, lvl]);
 
   return (
-    <pixiSprite
+    <StatsSprite
       texture={bgTexture}
       x={x}
       y={y}
@@ -27,6 +28,7 @@ export const Lab = ({
       height={
         villageType === "human" ? 100 : lvl === 1 ? 86 : lvl <= 10 ? 99 : 108
       }
+      stats={{ name: "Lab", lvl }}
     />
   );
 };

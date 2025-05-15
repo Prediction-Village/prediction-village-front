@@ -1,6 +1,7 @@
 import { Assets, Texture } from "pixi.js";
 import { useEffect, useState } from "react";
 import type { VillageType } from "../types/bridge";
+import { StatsSprite } from "./StatsOverlay";
 
 export const ArcherTower = ({
   villageType,
@@ -18,5 +19,14 @@ export const ArcherTower = ({
     });
   }, [villageType, lvl]);
 
-  return <pixiSprite texture={bgTexture} x={x} y={y} width={80} height={96} />;
+  return (
+    <StatsSprite
+      texture={bgTexture}
+      x={x}
+      y={y}
+      width={80}
+      height={96}
+      stats={{ name: "Archer Tower", lvl }}
+    />
+  );
 };
