@@ -95,9 +95,9 @@ const orkVillageBuildings: VillageBuildings = {
   },
 };
 
-export const Scene = () => {
+export const Scene = ({ y = 0 }: { y?: number }) => {
   return (
-    <>
+    <pixiContainer x={0} y={y}>
       <HumanVillage x={0} y={0} buildings={humanVillageBuildings} />
       <Bridge x={villageWidth} y={89} board={board} />
       <OrkVillage
@@ -105,6 +105,6 @@ export const Scene = () => {
         y={0}
         buildings={orkVillageBuildings}
       />
-    </>
+    </pixiContainer>
   );
 };

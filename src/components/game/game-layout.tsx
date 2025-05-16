@@ -1,5 +1,7 @@
 import { Application, extend } from "@pixi/react";
-import { Container, Graphics, Sprite, Text } from "pixi.js";
+import { Assets, Container, Graphics, Sprite, Text } from "pixi.js";
+import type { Texture } from "pixi.js";
+
 import { useEffect, useRef, useState } from "react";
 import { Scene } from "./sprites/scene";
 
@@ -18,6 +20,13 @@ export const GameLayout = () => {
   const [dragging, setDragging] = useState(false);
   const dragStart = useRef({ x: 0, y: 0 });
   const pointerStart = useRef({ x: 0, y: 0 });
+  const [bgTexture, setBgTexture] = useState<Texture | null>(null);
+
+  useEffect(() => {
+    Assets.load("/bg.png").then((texture) => {
+      setBgTexture(texture as Texture);
+    });
+  }, []);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -66,9 +75,18 @@ export const GameLayout = () => {
       onPointerUp={onPointerUp}
       onPointerMove={onPointerMove}
     >
-      <Application resizeTo={containerRef}>
+      <Application resizeTo={containerRef} background="#5FC8ED">
         <pixiContainer x={position.x} y={position.y} scale={scale}>
-          <Scene />
+          {bgTexture && (
+            <pixiSprite
+              texture={bgTexture}
+              x={0}
+              y={0}
+              width={2500}
+              height={1200}
+            />
+          )}
+          <Scene y={440} />
         </pixiContainer>
       </Application>
     </div>
