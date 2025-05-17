@@ -1,3 +1,4 @@
+import { MarketDashboard } from "@/components/market/market-layout";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/market")({
@@ -5,5 +6,5 @@ export const Route = createFileRoute("/market")({
 });
 
 function Market() {
-  return <div className="min-h-screen p-4"> market layout</div>;
+  return <MarketDashboard />;
 }
