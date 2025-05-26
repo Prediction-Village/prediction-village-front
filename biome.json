@@ -23,7 +23,8 @@
       "recommended": true,
       "style": {
         "useNumberNamespace": "off",
-        "useImportType": "off"
+        "useImportType": "off",
+        "useTemplate": "off"
       },
       "a11y": {
         "useKeyWithClickEvents": "off",

@@ -13,6 +13,7 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as MarketImport } from './routes/market'
 import { Route as IndexImport } from './routes/index'
+import { Route as MarketPredictionPredictionIdImport } from './routes/market.prediction.$predictionId'
 
 // Create/Update Routes
 
@@ -27,6 +28,13 @@ const IndexRoute = IndexImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any)
+
+const MarketPredictionPredictionIdRoute =
+  MarketPredictionPredictionIdImport.update({
+    id: '/prediction/$predictionId',
+    path: '/prediction/$predictionId',
+    getParentRoute: () => MarketRoute,
+  } as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -46,44 +54,65 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MarketImport
       parentRoute: typeof rootRoute
     }
+    '/market/prediction/$predictionId': {
+      id: '/market/prediction/$predictionId'
+      path: '/prediction/$predictionId'
+      fullPath: '/market/prediction/$predictionId'
+      preLoaderRoute: typeof MarketPredictionPredictionIdImport
+      parentRoute: typeof MarketImport
+    }
   }
 }
 
 // Create and export the route tree
 
+interface MarketRouteChildren {
+  MarketPredictionPredictionIdRoute: typeof MarketPredictionPredictionIdRoute
+}
+
+const MarketRouteChildren: MarketRouteChildren = {
+  MarketPredictionPredictionIdRoute: MarketPredictionPredictionIdRoute,
+}
+
+const MarketRouteWithChildren =
+  MarketRoute._addFileChildren(MarketRouteChildren)
+
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/market': typeof MarketRoute
+  '/market': typeof MarketRouteWithChildren
+  '/market/prediction/$predictionId': typeof MarketPredictionPredictionIdRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/market': typeof MarketRoute
+  '/market': typeof MarketRouteWithChildren
+  '/market/prediction/$predictionId': typeof MarketPredictionPredictionIdRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/market': typeof MarketRoute
+  '/market': typeof MarketRouteWithChildren
+  '/market/prediction/$predictionId': typeof MarketPredictionPredictionIdRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/market'
+  fullPaths: '/' | '/market' | '/market/prediction/$predictionId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/market'
-  id: '__root__' | '/' | '/market'
+  to: '/' | '/market' | '/market/prediction/$predictionId'
+  id: '__root__' | '/' | '/market' | '/market/prediction/$predictionId'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  MarketRoute: typeof MarketRoute
+  MarketRoute: typeof MarketRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  MarketRoute: MarketRoute,
+  MarketRoute: MarketRouteWithChildren,
 }
 
 export const routeTree = rootRoute
@@ -104,7 +133,14 @@ export const routeTree = rootRoute
       "filePath": "index.tsx"
     },
     "/market": {
-      "filePath": "market.tsx"
+      "filePath": "market.tsx",
+      "children": [
+        "/market/prediction/$predictionId"
+      ]
+    },
+    "/market/prediction/$predictionId": {
+      "filePath": "market.prediction.$predictionId.tsx",
+      "parent": "/market"
     }
   }
 }

@@ -1,10 +1,16 @@
 import { MarketDashboard } from "@/components/market/market-layout";
-import { createFileRoute } from "@tanstack/react-router";
+import { Outlet, createFileRoute, useLocation } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/market")({
-  component: Market,
+  component: MarketRouteComponent,
 });
 
-function Market() {
-  return <MarketDashboard />;
+function MarketRouteComponent() {
+  const location = useLocation();
+
+  if (location.pathname === Route.fullPath) {
+    return <MarketDashboard />;
+  }
+
+  return <Outlet />;
 }
