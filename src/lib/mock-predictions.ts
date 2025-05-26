@@ -9,7 +9,6 @@ export interface BasePrediction {
   description: string;
   category: string; // e.g., "Sports", "Politics", "Technology"
   endDate: string; // e.g., "YYYY-MM-DD"
-  history: PredictionHistoryPoint[];
 }
 
 export interface YesNoPrediction extends BasePrediction {
@@ -19,6 +18,7 @@ export interface YesNoPrediction extends BasePrediction {
     value: number;
     positive: boolean;
   };
+  history: PredictionHistoryPoint[];
 }
 
 export type MultipleChoiceOption = {
@@ -27,9 +27,15 @@ export type MultipleChoiceOption = {
   chance: number;
 };
 
+export interface MultipleChoiceHistoryPoint {
+  date: string;
+  optionChances: Record<string, number>;
+}
+
 export interface MultipleChoicePrediction extends BasePrediction {
   type: "MULTIPLE_CHOICE";
   options: MultipleChoiceOption[];
+  history: MultipleChoiceHistoryPoint[];
 }
 
 export type Prediction = YesNoPrediction | MultipleChoicePrediction;
@@ -85,9 +91,18 @@ export const mockPredictions: Prediction[] = [
       { id: "3-3", label: "Human Watchtower", chance: 22 },
     ],
     history: [
-      { date: "2025-05-01", value: 30 },
-      { date: "2025-05-15", value: 33 },
-      { date: "2025-05-26", value: 35 },
+      {
+        date: "2025-05-01",
+        optionChances: { "3-1": 30, "3-2": 40, "3-3": 30 },
+      },
+      {
+        date: "2025-05-15",
+        optionChances: { "3-1": 33, "3-2": 35, "3-3": 32 },
+      },
+      {
+        date: "2025-05-26",
+        optionChances: { "3-1": 35, "3-2": 28, "3-3": 22 },
+      },
     ],
   },
   {
@@ -121,9 +136,18 @@ export const mockPredictions: Prediction[] = [
       { id: "5-3", label: "Neither (Tie)", chance: 15 },
     ],
     history: [
-      { date: "2025-05-01", value: 40 },
-      { date: "2025-05-15", value: 43 },
-      { date: "2025-05-26", value: 45 },
+      {
+        date: "2025-05-01",
+        optionChances: { "5-1": 40, "5-2": 45, "5-3": 15 },
+      },
+      {
+        date: "2025-05-15",
+        optionChances: { "5-1": 43, "5-2": 42, "5-3": 15 },
+      },
+      {
+        date: "2025-05-26",
+        optionChances: { "5-1": 45, "5-2": 40, "5-3": 15 },
+      },
     ],
   },
   {

@@ -145,7 +145,25 @@ export function PredictionPage({ predictionId }: PredictionPageProps) {
             {prediction.history && prediction.history.length > 0 ? (
               <ResponsiveContainer width="100%" height={300}>
                 <LineChart
-                  data={prediction.history}
+                  data={
+                    prediction.type === "MULTIPLE_CHOICE"
+                      ? prediction.history.map((point) => {
+                          const options = (
+                            prediction as MultipleChoicePrediction
+                          ).options;
+                          const optionChancesByLabel: Record<string, number> =
+                            {};
+                          for (const opt of options) {
+                            optionChancesByLabel[opt.label] =
+                              point.optionChances[opt.id] ?? 0;
+                          }
+                          return {
+                            date: point.date,
+                            ...optionChancesByLabel,
+                          };
+                        })
+                      : prediction.history
+                  }
                   margin={{
                     top: 5,
                     right: 30,
@@ -161,24 +179,40 @@ export function PredictionPage({ predictionId }: PredictionPageProps) {
                       backgroundColor: "hsl(var(--background))",
                       borderColor: "hsl(var(--border))",
                     }}
-                    formatter={(value: number) => [
+                    formatter={(value: number, name: string) => [
                       `${value}%`,
-                      "Probability/Chance",
+                      name,
                     ]}
                   />
                   <Legend />
-                  <Line
-                    type="monotone"
-                    dataKey="value"
-                    stroke="hsl(var(--primary))"
-                    strokeWidth={2}
-                    activeDot={{ r: 8 }}
-                    name={
-                      prediction.type === "YES_NO"
-                        ? "Yes Probability"
-                        : "Leading Option Chance"
-                    }
-                  />
+                  {prediction.type === "YES_NO" ? (
+                    <Line
+                      type="monotone"
+                      dataKey="value"
+                      stroke="hsl(var(--primary))"
+                      strokeWidth={2}
+                      activeDot={{ r: 8 }}
+                      name="Yes Probability"
+                    />
+                  ) : (
+                    (prediction as MultipleChoicePrediction).options.map(
+                      (option, idx) => (
+                        <Line
+                          key={option.id}
+                          type="monotone"
+                          dataKey={option.label}
+                          stroke={
+                            ["#2563eb", "#16a34a", "#f59e42", "#e11d48"][
+                              idx % 4
+                            ]
+                          }
+                          strokeWidth={2}
+                          activeDot={{ r: 8 }}
+                          name={option.label}
+                        />
+                      ),
+                    )
+                  )}
                 </LineChart>
               </ResponsiveContainer>
             ) : (
