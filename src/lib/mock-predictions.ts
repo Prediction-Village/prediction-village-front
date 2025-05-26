@@ -14,18 +14,18 @@ export interface BasePrediction {
 
 export interface YesNoPrediction extends BasePrediction {
   type: "YES_NO";
-  probability: number; // Current probability for "Yes", 0-100
-  change24h: { // Change in the last 24 hours
+  probability: number;
+  change24h: {
     value: number;
     positive: boolean;
   };
 }
 
-export interface MultipleChoiceOption {
+export type MultipleChoiceOption = {
   id: string;
   label: string;
-  chance: number; // Current chance for this option, 0-100
-}
+  chance: number;
+};
 
 export interface MultipleChoicePrediction extends BasePrediction {
   type: "MULTIPLE_CHOICE";
@@ -38,94 +38,113 @@ export const mockPredictions: Prediction[] = [
   {
     id: "1",
     type: "YES_NO",
-    title: "Will AI achieve AGI by 2030?",
-    description: "Predict whether Artificial General Intelligence will be successfully demonstrated by the end of 2030.",
-    category: "Technology",
-    endDate: "2030-12-31",
-    probability: 65,
+    title: "Humans Townhall Upgrade",
+    description:
+      "Will the Human townhall upgrade to level 3 before block #12345?",
+    category: "Humans",
+    endDate: "2025-12-31",
+    probability: 68,
     change24h: {
-      value: 2.5,
+      value: 5.2,
       positive: true,
     },
     history: [
-      { date: "2024-01-01", value: 30 },
-      { date: "2024-02-01", value: 35 },
-      { date: "2024-03-01", value: 45 },
-      { date: "2024-04-01", value: 50 },
-      { date: "2024-05-01", value: 60 },
-      { date: "2024-06-01", value: 62.5 },
-      { date: "2024-07-01", value: 65 },
+      { date: "2025-05-01", value: 60 },
+      { date: "2025-05-15", value: 62 },
+      { date: "2025-05-26", value: 68 },
     ],
   },
   {
     id: "2",
     type: "YES_NO",
-    title: "Will the next World Cup winner be from South America?",
-    description: "Predict if a South American national team will win the upcoming FIFA World Cup.",
-    category: "Sports",
-    endDate: "2026-07-19",
-    probability: 40,
+    title: "Orks Win Current Game",
+    description: "Will the Orks win the current battle on the bridge?",
+    category: "Orks",
+    endDate: "2025-12-31",
+    probability: 42,
     change24h: {
-      value: 1.0,
+      value: -3.8,
       positive: false,
     },
     history: [
-      { date: "2024-01-01", value: 45 },
-      { date: "2024-02-01", value: 42 },
-      { date: "2024-03-01", value: 40 },
-      { date: "2024-04-01", value: 38 },
-      { date: "2024-05-01", value: 41 },
-      { date: "2024-06-01", value: 40 },
+      { date: "2025-05-01", value: 45 },
+      { date: "2025-05-15", value: 44 },
+      { date: "2025-05-26", value: 42 },
     ],
   },
   {
     id: "3",
     type: "MULTIPLE_CHOICE",
-    title: "Which company will be the first to land humans on Mars?",
-    description: "Predict which entity will be the first to successfully land a crewed mission on Mars.",
-    category: "Space Exploration",
-    endDate: "2040-01-01",
+    title: "Next Building Upgrade",
+    description: "Which building will be upgraded next in either village?",
+    category: "Battles",
+    endDate: "2025-12-31",
     options: [
-      { id: "3-1", label: "SpaceX", chance: 70 },
-      { id: "3-2", label: "Blue Origin", chance: 15 },
-      { id: "3-3", label: "NASA (or state agency)", chance: 10 },
-      { id: "3-4", label: "Other", chance: 5 },
+      { id: "3-1", label: "Human Barracks", chance: 35 },
+      { id: "3-2", label: "Ork Armory", chance: 28 },
+      { id: "3-3", label: "Human Watchtower", chance: 22 },
     ],
-    // For MC, history could track the 'leading' option or a specific option.
-    // Here, let's track SpaceX's chance.
     history: [
-      { date: "2024-01-01", value: 50 }, // SpaceX chance
-      { date: "2024-02-01", value: 55 },
-      { date: "2024-03-01", value: 60 },
-      { date: "2024-04-01", value: 65 },
-      { date: "2024-05-01", value: 70 },
+      { date: "2025-05-01", value: 30 },
+      { date: "2025-05-15", value: 33 },
+      { date: "2025-05-26", value: 35 },
     ],
   },
   {
     id: "4",
-    type: "MULTIPLE_CHOICE",
-    title: "What will be the dominant web browser in 2025?",
-    description: "Predict the web browser with the highest global market share at the start of 2025.",
-    category: "Technology",
-    endDate: "2025-01-01",
-    options: [
-      { id: "4-1", label: "Google Chrome", chance: 60 },
-      { id: "4-2", label: "Mozilla Firefox", chance: 15 },
-      { id: "4-3", label: "Microsoft Edge", chance: 20 },
-      { id: "4-4", label: "Safari", chance: 5 },
-    ],
-    // History for Google Chrome's chance
+    type: "YES_NO",
+    title: "Bridge Control",
+    description: "Will Humans control the bridge by block #12500?",
+    category: "Battles",
+    endDate: "2025-12-31",
+    probability: 51,
+    change24h: {
+      value: 1.2,
+      positive: true,
+    },
     history: [
-      { date: "2023-01-01", value: 65 },
-      { date: "2023-04-01", value: 63 },
-      { date: "2023-07-01", value: 62 },
-      { date: "2023-10-01", value: 60 },
-      { date: "2024-01-01", value: 60 },
+      { date: "2025-05-01", value: 50 },
+      { date: "2025-05-15", value: 50 },
+      { date: "2025-05-26", value: 51 },
+    ],
+  },
+  {
+    id: "5",
+    type: "MULTIPLE_CHOICE",
+    title: "First to Level 5",
+    description: "Which building will reach level 5 first?",
+    category: "Both",
+    endDate: "2025-12-31",
+    options: [
+      { id: "5-1", label: "Human Townhall", chance: 45 },
+      { id: "5-2", label: "Ork Stronghold", chance: 40 },
+      { id: "5-3", label: "Neither (Tie)", chance: 15 },
+    ],
+    history: [
+      { date: "2025-05-01", value: 40 },
+      { date: "2025-05-15", value: 43 },
+      { date: "2025-05-26", value: 45 },
+    ],
+  },
+  {
+    id: "6",
+    type: "YES_NO",
+    title: "Ork Defense Upgrade",
+    description: "Will Orks upgrade their defensive walls before block #13000?",
+    category: "Orks",
+    endDate: "2025-12-31",
+    probability: 73,
+    change24h: {
+      value: 8.7,
+      positive: true,
+    },
+    history: [
+      { date: "2025-05-01", value: 65 },
+      { date: "2025-05-15", value: 70 },
+      { date: "2025-05-26", value: 73 },
     ],
   },
 ];
-
-// Function to get a prediction by ID (optional, but helpful)
 export function getPredictionById(id: string): Prediction | undefined {
-  return mockPredictions.find(p => p.id === id);
+  return mockPredictions.find((p) => p.id === id);
 }

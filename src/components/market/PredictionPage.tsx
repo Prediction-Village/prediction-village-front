@@ -1,4 +1,5 @@
-import React from 'react';
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -6,20 +7,23 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { getPredictionById, Prediction, YesNoPrediction, MultipleChoicePrediction, MultipleChoiceOption } from '@/lib/mock-predictions'; // Assuming mock-predictions.ts is in src/lib
-import { Button } from '@/components/ui/button';
-import { ArrowUpIcon, ArrowDownIcon } from 'lucide-react';
+import { getPredictionById } from "@/lib/mock-predictions";
+import type {
+  MultipleChoiceOption,
+  MultipleChoicePrediction,
+  YesNoPrediction,
+} from "@/lib/mock-predictions";
+import { ArrowDownIcon, ArrowUpIcon } from "lucide-react";
 import {
-  LineChart,
+  CartesianGrid,
+  Legend,
   Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from 'recharts';
+} from "recharts";
 
 interface PredictionPageProps {
   predictionId: string;
@@ -41,12 +45,16 @@ export function PredictionPage({ predictionId }: PredictionPageProps) {
       <Card>
         <CardHeader>
           <div className="flex justify-between items-start">
-            <CardTitle className="text-2xl font-bold">{prediction.title}</CardTitle>
+            <CardTitle className="text-2xl font-bold">
+              {prediction.title}
+            </CardTitle>
             <Badge variant="outline">{prediction.category}</Badge>
           </div>
           <CardDescription>
             {prediction.description} <br />
-            <span className="text-xs text-muted-foreground">Ends on: {new Date(prediction.endDate).toLocaleDateString()}</span>
+            <span className="text-xs text-muted-foreground">
+              Ends on: {new Date(prediction.endDate).toLocaleDateString()}
+            </span>
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -74,15 +82,22 @@ export function PredictionPage({ predictionId }: PredictionPageProps) {
                   ) : (
                     <ArrowDownIcon className="h-4 w-4" />
                   )}
-                  <span>{(prediction as YesNoPrediction).change24h.value}%</span>
-                  <span className="text-xs text-muted-foreground ml-1">24h</span>
+                  <span>
+                    {(prediction as YesNoPrediction).change24h.value}%
+                  </span>
+                  <span className="text-xs text-muted-foreground ml-1">
+                    24h
+                  </span>
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <Button variant="outline" size="lg">
                   Predict No
                 </Button>
-                <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white">
+                <Button
+                  size="lg"
+                  className="bg-green-600 hover:bg-green-700 text-white"
+                >
                   Predict Yes
                 </Button>
               </div>
@@ -92,23 +107,35 @@ export function PredictionPage({ predictionId }: PredictionPageProps) {
           {/* Multiple Choice specific view */}
           {prediction.type === "MULTIPLE_CHOICE" && (
             <div id="prediction-multiple-choice-view" className="space-y-3">
-              <h3 className="text-md font-semibold text-muted-foreground">Choose an option:</h3>
-              {(prediction as MultipleChoicePrediction).options.map((option: MultipleChoiceOption) => (
-                <div
-                  key={option.id}
-                  className="flex items-center justify-between rounded-lg border p-4"
-                >
-                  <div className="flex flex-col">
-                    <span className="font-medium">{option.label}</span>
-                    <span className="text-sm text-muted-foreground">
-                      {option.chance}% chance
-                    </span>
+              <h3 className="text-md font-semibold text-muted-foreground">
+                Choose an option:
+              </h3>
+              {(prediction as MultipleChoicePrediction).options.map(
+                (option: MultipleChoiceOption) => (
+                  <div
+                    key={option.id}
+                    className="flex items-center justify-between rounded-lg border p-4"
+                  >
+                    <div className="flex flex-col">
+                      <span className="font-medium">{option.label}</span>
+                      <span className="text-sm text-muted-foreground">
+                        {option.chance}% chance
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2">
+                      <Button variant="outline" size="sm">
+                        Predict No
+                      </Button>
+                      <Button
+                        size="sm"
+                        className="bg-green-600 hover:bg-green-700 text-white"
+                      >
+                        Predict Yes
+                      </Button>
+                    </div>
                   </div>
-                  <Button variant="outline" size="sm">
-                    Predict {option.label}
-                  </Button>
-                </div>
-              ))}
+                ),
+              )}
             </div>
           )}
 
@@ -131,10 +158,13 @@ export function PredictionPage({ predictionId }: PredictionPageProps) {
                   <YAxis domain={[0, 100]} />
                   <Tooltip
                     contentStyle={{
-                      backgroundColor: 'hsl(var(--background))',
-                      borderColor: 'hsl(var(--border))',
+                      backgroundColor: "hsl(var(--background))",
+                      borderColor: "hsl(var(--border))",
                     }}
-                    formatter={(value: number) => [`${value}%`, 'Probability/Chance']}
+                    formatter={(value: number) => [
+                      `${value}%`,
+                      "Probability/Chance",
+                    ]}
                   />
                   <Legend />
                   <Line
@@ -143,12 +173,18 @@ export function PredictionPage({ predictionId }: PredictionPageProps) {
                     stroke="hsl(var(--primary))"
                     strokeWidth={2}
                     activeDot={{ r: 8 }}
-                    name={prediction.type === 'YES_NO' ? 'Yes Probability' : 'Leading Option Chance'}
+                    name={
+                      prediction.type === "YES_NO"
+                        ? "Yes Probability"
+                        : "Leading Option Chance"
+                    }
                   />
                 </LineChart>
               </ResponsiveContainer>
             ) : (
-              <p className="text-muted-foreground">No history data available for this prediction.</p>
+              <p className="text-muted-foreground">
+                No history data available for this prediction.
+              </p>
             )}
           </div>
         </CardContent>
