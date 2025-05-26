@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/card";
 import { ArrowDownIcon, ArrowUpIcon } from "lucide-react";
 import React from "react";
+import { Link } from '@tanstack/react-router';
 
 export interface Option {
   label: string;
@@ -15,6 +16,7 @@ export interface Option {
 }
 
 export interface PredictionCardProps {
+  id: string;
   title: string;
   badge: React.ReactNode;
   description: string;
@@ -27,6 +29,7 @@ export interface PredictionCardProps {
 }
 
 export function PredictionCard({
+  id,
   title,
   badge,
   description,
@@ -40,16 +43,17 @@ export function PredictionCard({
   const isYesNo = probability !== undefined && change !== undefined;
 
   return (
-    <Card>
-      <CardHeader className="pb-3">
-        <div className="flex items-start justify-between">
-          <CardTitle className="text-lg font-medium">{title}</CardTitle>
-          {badge}
-        </div>
-        <p className="text-sm text-muted-foreground">{description}</p>
-      </CardHeader>
+    <Link to="/market/prediction/$predictionId" params={{ predictionId: id }} className="block hover:no-underline focus:outline-none group">
+      <Card className="group-hover:shadow-lg transition-shadow duration-200 h-full flex flex-col">
+        <CardHeader className="pb-3">
+          <div className="flex items-start justify-between">
+            <CardTitle className="text-lg font-medium group-hover:text-primary transition-colors">{title}</CardTitle>
+            {badge}
+          </div>
+          <p className="text-sm text-muted-foreground flex-grow">{description}</p> {/* Added flex-grow for description if needed */}
+        </CardHeader>
 
-      <CardContent>
+        <CardContent className="flex-grow"> {/* Added flex-grow to allow content to expand */}
         {isYesNo && probability && change ? (
           <div className="flex items-center justify-between">
             <div className="flex flex-col">
@@ -89,14 +93,14 @@ export function PredictionCard({
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => onSelect?.(opt, false)}
+                  onClick={(e) => { e.preventDefault(); onSelect?.(opt, false); }}
                 >
                   No
                 </Button>
                 <Button
                   size="sm"
-                  className="bg-green-600 hover:bg-green-700"
-                  onClick={() => onSelect?.(opt, true)}
+                  className="bg-green-600 hover:bg-green-700 text-white" // Added text-white for better contrast
+                  onClick={(e) => { e.preventDefault(); onSelect?.(opt, true); }}
                 >
                   Yes
                 </Button>
@@ -107,18 +111,19 @@ export function PredictionCard({
       </CardContent>
 
       {isYesNo && (
-        <CardFooter className="flex justify-between border-t pt-4">
-          <Button variant="outline" className="w-[48%]" onClick={onNo}>
+        <CardFooter className="flex justify-between border-t pt-4 mt-auto"> {/* Added mt-auto to push footer down */}
+          <Button variant="outline" className="w-[48%]" onClick={(e) => { e.preventDefault(); onNo?.(); }}>
             No
           </Button>
           <Button
-            className="w-[48%] bg-green-600 hover:bg-green-700"
-            onClick={onYes}
+            className="w-[48%] bg-green-600 hover:bg-green-700 text-white" // Added text-white
+            onClick={(e) => { e.preventDefault(); onYes?.(); }}
           >
             Yes
           </Button>
         </CardFooter>
       )}
     </Card>
+    </Link>
   );
 }
